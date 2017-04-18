@@ -100,13 +100,13 @@ the MeMO implemented sensitivity analysis for single parameters:
 	where:
 	par0			List containing initial parameter guesses. (1)
 	r_except		Boolean indicating if any parameter affecting linear correlation should be
-					assigned to g_r (Most cases affection on r is rare) ignoring significance level
-	printSummary	Boolean indicating if a .txt file should be created giving performance 
-					criteria for each parameter iteration. Filename is drawn from parNames
+				assigned to g_r (Most cases affection on r is rare) ignoring significance level
+	printSummary		Boolean indicating if a .txt file should be created giving performance 
+				criteria for each parameter iteration. Filename is drawn from parNames
 	plotSummary		Boolean indicating if a .png plot of parameter sensitivity should be created.
-					Filenames are drawn from parNames
+				Filenames are drawn from parNames
 	parNames		List/Array of strings, used for plot labels and filenames. If parNames is None 
-					parNames are replaced by integers representing parameter position in par0 list.
+				parNames are replaced by integers representing parameter position in par0 list.
 
 This command starts a one-factor-at-a-time sensitivity analysis. Each parameter in the par0 list
 will be varied in its (beforehand) given constraints. All other parameters remain on the initial
@@ -141,11 +141,11 @@ On initialisation of MeMO some default settings are made that can be altered, bu
 retained on default values.
 
 	opt._maxIter = 2		#Number of optimisation iterations
-	opt._significance = 0.1	#Significance level for single parameter sensitivity
-	opt._pp					#Array of floating values in range (0,1] comprising by default 100 elements
-							#	defines the steps parameter(-groups) are altered in
-							#	in sensitivity analyses
-	opt._overwrite = True	#Boolean if existing summaries and plots should be deleted.
+	opt._significance = 0.1		#Significance level for single parameter sensitivity
+	opt._pp				#Array of floating values in range (0,1] comprising by default 100 elements
+					#	defines the steps parameter(-groups) are altered in
+					#	in sensitivity analyses
+	opt._overwrite = True		#Boolean if existing summaries and plots should be deleted.
 
 
 
