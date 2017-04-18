@@ -98,15 +98,11 @@ the MeMO implemented sensitivity analysis for single parameters:
 	opt.singleSensitivity(par0, r_except = True, printSummary = True, parNames = None, plotSummary = False)
 	
 	where:
-	par0			List containing initial parameter guesses. (1)
-	r_except		Boolean indicating if any parameter affecting linear correlation should be
-				assigned to g_r (Most cases affection on r is rare) ignoring significance level
-	printSummary		Boolean indicating if a .txt file should be created giving performance 
-				criteria for each parameter iteration. Filename is drawn from parNames
-	plotSummary		Boolean indicating if a .png plot of parameter sensitivity should be created.
-				Filenames are drawn from parNames
-	parNames		List/Array of strings, used for plot labels and filenames. If parNames is None 
-				parNames are replaced by integers representing parameter position in par0 list.
+		> par0			List containing initial parameter guesses. (1)
+		> r_except		Boolean indicating if any parameter affecting linear correlation should be assigned to g_r (Most cases affection on r is rare) ignoring significance level
+		> printSummary		Boolean indicating if a .txt file should be created giving performance criteria for each parameter iteration. Filename is drawn from parNames
+		> plotSummary		Boolean indicating if a .png plot of parameter sensitivity should be created. Filenames are drawn from parNames
+		> parNames		List/Array of strings, used for plot labels and filenames. If parNames is None parNames are replaced by integers representing parameter position in par0 list.
 
 This command starts a one-factor-at-a-time sensitivity analysis. Each parameter in the par0 list
 will be varied in its (beforehand) given constraints. All other parameters remain on the initial
