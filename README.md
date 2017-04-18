@@ -26,6 +26,7 @@ the timing of simulated floods.
 
 
 **Installation**:
+
 At the current state (BETA) MeMO is not availiable in the python package index so I evaded the
 compilation of a setup file. So please install it the (very) plain way:
 
@@ -36,6 +37,7 @@ compilation of a setup file. So please install it the (very) plain way:
 
 
 **Usage**:
+
 To use MeMO to optimise your model you have built three instances:
 
 1. 	An array/list of a first parameter guess (can be random) par0 comprising all parameters that shall
@@ -134,6 +136,7 @@ Performance criteria of the returned parameter set can be drawn by:
 
 
 **Additional settings**:
+
 On initialisation of MeMO some default settings are made that can be altered, but are recommended to
 retained on default values.
 
