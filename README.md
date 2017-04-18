@@ -11,6 +11,8 @@ and linear correlation coefficient (Timing). Since MeMO is designed for hydrolog
 components can be (straightforwardly) described as flood volume, relation of flood peaks and
 the timing of simulated floods.
 
+
+
 System requirements:
 
 - OS:
@@ -21,6 +23,8 @@ System requirements:
 - Required Python Addins (Minimum):
 	numpy	Version	1.11.0
 	
+
+
 Installation:
 At the current state (BETA) MeMO is not availiable in the python package index so I evaded the
 compilation of a setup file. So please install it the (very) plain way:
@@ -29,7 +33,9 @@ compilation of a setup file. So please install it the (very) plain way:
 2. Script can be started without further installation
 
 
-\bUsage\b:
+
+
+Usage:
 To use MeMO to optimise your model you have built three instances:
 
 1. An array/list of a first parameter guess (can be random) par0 comprising all parameters that shall
@@ -125,6 +131,8 @@ Performance criteria of the returned parameter set can be drawn by:
 	opt.last_opt_components()
 
 
+
+
 Additional settings:
 On initialisation of MeMO some default settings are made that can be altered, but are recommended to
 retained on default values.
@@ -137,25 +145,27 @@ retained on default values.
 	opt._overwrite = True	#Boolean if existing summaries and plots should be deleted.
 
 
+
+
 Further Notes:
 
-	- Single sensitivity analysis
-		1.	If a parameter has no impact on model performance, MeMO throws a warning that (if parNames are given)
-			the respective parameter, or number of parameter, has no impact.
-			The parameter has to be omitted from par0 or assigned to a meta-group manually!
+- Single sensitivity analysis
+	1.	If a parameter has no impact on model performance, MeMO throws a warning that (if parNames are given)
+		the respective parameter, or number of parameter, has no impact.
+		The parameter has to be omitted from par0 or assigned to a meta-group manually!
 		
-		2.	If a parameter has an impact that on all critera that is greater than opt._significance
-			MeMO throws an according warning.
-			The parameter should be omitted from par0 or can be assigned to a meta-group manually!
-			Alternatively the significance level can be increased.
+	2.	If a parameter has an impact that on all critera that is greater than opt._significance
+		MeMO throws an according warning.
+		The parameter should be omitted from par0 or can be assigned to a meta-group manually!
+		Alternatively the significance level can be increased.
 		
-		3.	At this point the outcome of the singleSensitivity routine is bound to par0. Hence, 
-			results are sufficient but biased. Parameter impacts are sometimes over- or underestimated.
-			Future work will be made to employ a global sensitivity analysis. Note that you can apply
-			your own sensitivity analysis and give its result to model.
+	3.	At this point the outcome of the singleSensitivity routine is bound to par0. Hence, 
+		results are sufficient but biased. Parameter impacts are sometimes over- or underestimated.
+		Future work will be made to employ a global sensitivity analysis. Note that you can apply
+		your own sensitivity analysis and give its result to model.
 
-	- Objective function
-		The schematic structure of the objective function should look something like this:
+- Objective function
+	The schematic structure of the objective function should look something like this:
 		
 		def objfunction(pars):
 			#Instance model
