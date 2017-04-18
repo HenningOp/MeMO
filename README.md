@@ -13,7 +13,7 @@ the timing of simulated floods.
 
 
 
-System requirements:
+**System requirements**:
 
 - OS:
 	Linux
@@ -25,7 +25,7 @@ System requirements:
 	
 
 
-Installation:
+**Installation**:
 At the current state (BETA) MeMO is not availiable in the python package index so I evaded the
 compilation of a setup file. So please install it the (very) plain way:
 
@@ -35,14 +35,14 @@ compilation of a setup file. So please install it the (very) plain way:
 
 
 
-Usage:
+**Usage**:
 To use MeMO to optimise your model you have built three instances:
 
-1. An array/list of a first parameter guess (can be random) par0 comprising all parameters that shall
-be used in calibration. All elements are floating values.
-2. Two arrays containing the parameter contraints (upper and lower). All elements are floating values
-3. A function that gives estimated parameters to the model, runs the model and returns a list
-with calculated components of the Kling-Gupta Efficiency. 
+1. 	An array/list of a first parameter guess (can be random) par0 comprising all parameters that shall
+	be used in calibration. All elements are floating values.
+2. 	Two arrays containing the parameter contraints (upper and lower). All elements are floating values
+3. 	A function that gives estimated parameters to the model, runs the model and returns a list
+	with calculated components of the Kling-Gupta Efficiency. 
 
 An example for such a function will be given in the next section. To apply a meta-optimisation
 first import MeMO to your script:
@@ -133,7 +133,7 @@ Performance criteria of the returned parameter set can be drawn by:
 
 
 
-Additional settings:
+**Additional settings**:
 On initialisation of MeMO some default settings are made that can be altered, but are recommended to
 retained on default values.
 
@@ -147,7 +147,7 @@ retained on default values.
 
 
 
-Further Notes:
+**Further Notes**:
 
 - Single sensitivity analysis
 	1.	If a parameter has no impact on model performance, MeMO throws a warning that (if parNames are given)
