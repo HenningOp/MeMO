@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 class memo(object):
     """Meta-model optimisation tool, previously named cal 'em all"""
 
-    def __init__(s, nPars, incrementals = 0.01, nIter = 2, SingleSig = 0.1):
+    def __init__(s, nPars, incrementals = 0.01, nIter = 2, GroupSig = 0.1, SingleSig = 0.1, convergence = 0.0001):
         """Instance calibration object"""
         #Parameter boundaries and numbers
         s._left = np.zeros(nPars)
@@ -17,8 +17,10 @@ class memo(object):
 
         #Remaining stuff
         s._maxIter = nIter
-        s._significance = SingleSig
-        s._overwrite = True
+        s._conv = convergence
+        s._significance = GroupSig
+        s.sensSignificance = SingleSig
+        s.overwrite = True
 
         #Objective function
         s._function = None
@@ -93,14 +95,10 @@ class memo(object):
                 else:
                     print 'WARNING: Parameter ' + parNames[i] + ' has no impact on model performance...'
             else:
-                if len(ranges[np.greater(ranges, s._significance)]) == 3:
+                if len(ranges[np.greater(ranges, s.sensSignificance)]) == 3:
                     #Exception 1: "Superparameter" remain unattended
-                    if parNames == None:
-                        print 'WARNING: Parameter No.' + str(i) + ' has significant impact on all performance criteria...'
-                    else:
-                        print 'WARNING: Parameter ' + parNames[i] + ' has significant impact on all performance criteria...'
                     superpar = True
-                elif ranges[2] > 1.5 * s._significance and r_except == True:
+                elif ranges[2] > 1.5 * s.sensSignificance and r_except == True:
                     #Exception 2: Any parameter affecting r2 is assigned to g_r2
                     groups[2].append(i)
                     superpar = False
@@ -149,7 +147,7 @@ class memo(object):
                     if parNames == None:
                         j = 0
                         out = 'sensitivity_par-' + str(i) + '.txt'
-                        if s._overwrite == False:
+                        if s.overwrite == False:
                             while os.path.isfile(out) == True:
                                 j += 1
                                 out = 'sensitivity_par-' + str(i) + '_' + str(j) + '.txt'
@@ -157,7 +155,7 @@ class memo(object):
                     else:
                         j = 0
                         out = 'sensitivity_' + parNames[i] + '.txt'
-                        if s._overwrite == False:
+                        if s.overwrite == False:
                             while os.path.isfile(out) == True:
                                 j += 1
                                 out = 'sensitivity_' + parNames[i] + '_' + str(j) + '.txt'
@@ -202,21 +200,21 @@ class memo(object):
                     #Save figure
                     if parNames == None:
                         out = 'par_' + str(i)  + '.png'
-                        if s._overwrite == False:
+                        if s.overwrite == False:
                             j = 0
                             while os.path.isfile(out) == True:
                                 j += 1
                                 out = 'par_' + str(i)  + '_' + str(j) + '.png'
                     else:
                         out = 'par_' + parNames[i]  + '.png'
-                        if s._overwrite == False:
+                        if s.overwrite == False:
                             j = 0
                             while os.path.isfile(out) == True:
                                 j += 1
                                 out = 'par_' + parNames[i]  +  + '_' + str(j) + '.png'
                     plt.savefig(out)
-                    plt.close()
-                    
+                    plt.delaxes()
+                    del fig
 
         return groups
         
@@ -263,10 +261,11 @@ class memo(object):
             print '... assorting parameter groups'
             s.g_a, s.g_b, s.g_r = singleSensitivity(r_except = True, printSummary = False, parNames = None, printGraphics = False)
 
-        
-        #Repeat calibration maxIter-times
-        for xy in range(0, s._maxIter):
 
+        repeat = True
+        bef, xy = 0, 0
+        while repeat == True:
+            
             #Instance storages
             s.__a, s.__b, s.__r = [],[],[]
             s.__ALPHA, s.__BETA, s.__R2 = [],[],[]
@@ -297,8 +296,6 @@ class memo(object):
                     #Give parameters to model
                     s.__alpha, s.__beta, s.__r2 = s._function(pars)
 
-##                    print s.__alpha, s.__beta, s.__r2
-                    
                     s.__ALPHA.append(s.__alpha)
                     s.__BETA.append(s.__beta)
                     s.__R2.append(s.__r2)
@@ -354,6 +351,26 @@ class memo(object):
                         #True: Update KGE
                         s.__kge = 1-np.sqrt(np.power(1-s.__alpha,2)+np.power(1-s.__beta,2)+np.power(1-s.__r2,2))
 
+            xy += 1
+            if s._maxIter == None:
+                #Perform at least 2 iterations
+                if xy > 1:
+                    #If performance converges, end iteration
+                    if s.__kge - bef < s._conv:
+                        repeat = False
+                    else:
+                        bef = s.__kge
+            else:
+                #If performance converges, end iteration
+                if s.__kge - bef < s._conv:
+                    repeat = False
+                else:
+                    bef = s.__kge
+                #If maximum iteration is reached
+                if xy + 1 == s._maxIter:
+                    repeat = False
+            
+                
         return pars
 
     def last_opt_val(s):
