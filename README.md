@@ -56,12 +56,18 @@ or
 	import MeMO as memo
 
 I will refer to the latter import command in the following. 
-The optimisation run (opt) is instanced with the number of parameters MeMO has to hande (numPars):
+The optimisation run (opt) is instanced as follows:
 
-	opt = memo.memo(numPars)
+	opt = memo.memo(numPars, nIter = 2, convergence = 0.0001)
+	
+	where:
+		> numPars 	integer, number of parameters to be optimised
+		> nIter		integer, maximum iterations to be performed by MeMO (default is 2)
+		> convergence	float, if increase of model performance is below this value the optimisation routine is ended.
 
-Next some definitions have to be made. First Parameter constraints, please note that we refer them as "right" and "left" boundaries, not as
-usual with "upper" and "lower" (due to the fact that boundary values can be switched in course
+More specifications can be made on instance of the optimisation routine, see "Additional settings" below. Next some definitions have to be made.
+First Parameter constraints, please note that we refer them as "right" and "left" boundaries, not as usual with "upper" and "lower" 
+(due to the fact that boundary values can be switched in course
 of calibration):
 
 	opt.set_rightBoundary(numpyArray_1)
