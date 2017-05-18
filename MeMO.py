@@ -1,6 +1,5 @@
 import numpy as np
 import copy, os
-import matplotlib.pyplot as plt
 
 class memo(object):
     """Meta-model optimisation tool, previously named cal 'em all"""
